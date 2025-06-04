@@ -1,0 +1,39 @@
+// envkit-project/tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2022", // Use a modern target that Bun supports well
+    "lib": ["ES2022"], // Only core JS features at the root. Specific environments add their own.
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "outDir": "./dist", // This won't be used due to noEmit: true, but good to have
+    "noEmit": true, // The root tsconfig does not emit any JS files. tsup handles this.
+    // "declaration": true, // Removed as noEmit: true
+    // "declarationMap": true, // Removed as noEmit: true
+    // "sourceMap": true, // Removed as noEmit: true
+    "removeComments": false, // Usually handled by bundler, or kept for license comments
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "useUnknownInCatchVariables": true,
+    "noUncheckedIndexedAccess": true, // Excellent for robustness
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+    "isolatedModules": true // Crucial for faster builds with tools like tsup/esbuild
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules",
+    "dist",
+    "**/dist",
+    "build",
+    "**/build",
+    "prettier.config.mjs"
+  ]
+}
