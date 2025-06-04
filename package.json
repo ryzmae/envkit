@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "changeset": "bunx changeset",
+    "version-packages": "bunx changeset version",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@changesets/cli": "latest",
+    "@total-typescript/ts-reset": "^0.6.1",
     "prettier": "^3.5.3",
     "turbo": "^2.5.4",
     "typescript": "5.8.2"
