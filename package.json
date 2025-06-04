@@ -1,5 +1,6 @@
 {
-  "name": "envkit",
+  "name": "@ryzmae/root",
+  "description": "Root package for the EnvKit Project, containing shared configurations and scripts.",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -18,7 +19,6 @@
   },
   "packageManager": "bun@1.2.12",
   "workspaces": [
-    "apps/*",
     "packages/*"
   ]
 }
