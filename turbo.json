@@ -7,6 +7,16 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
       "dependsOn": ["^build"]
     },
+    "check-types": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^check-types"]
+    },
+    "format": {
+      "cache": false,
+      "persistent": true,
+      "outputs": []
+    },
     "lint": {
       "outputs": []
     },

@@ -1,4 +1,3 @@
-// envkit-project/tsconfig.json
 {
   "compilerOptions": {
     "target": "ES2022", // Use a modern target that Bun supports well
