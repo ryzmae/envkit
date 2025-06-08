@@ -27,17 +27,10 @@ export type BlueprintOSType = "any" | "linux" | "macos" | "windows";
  *       { name: "docker", minVersion: "20.0.0" }
  *     ]
  *   },
- *   workspace: {
- *     path: "~/Projects/my-web-app"
- *   },
- *   projects: [
- *     {
- *       repoUrl: "https://github.com/company/frontend.git",
- *       clonePath: "frontend",
- *       installCommand: "npm install",
- *       runCommand: "npm run dev"
- *     }
- *   ],
+ *  repository: {
+ *    url: "https://github.com/company/my-web-app.git",
+ *    clonePath: "my-web-app"
+ *  },
  *   sync: true
  * };
  * ```
@@ -162,75 +155,20 @@ export interface BlueprintDefinition {
    * Defines the primary location where the project's codebases will reside.
    * EnvKit will ensure this directory exists and serve as the base for cloning projects.
    */
-  workspace?: {
+  repository?: {
     /**
-     * The path (absolute or relative to home directory) where the project's codebases will be cloned.
-     * Example: "~/Projects/my-app"
-     * If omitted, EnvKit might default to the current working directory, or prompt the user.
+     * The URL of the project's main repository (e.g., GitHub, GitLab, Bitbucket).
+     * This is where the project's codebase can be cloned from.
+     * Example: "https:///github.com/company/my-project.git"
      */
-    path: string;
+    url: string;
+    /**
+     * The local path where the repository should be cloned.
+     * This is relative to the `workspace.path` or absolute.
+     * Example: "my-project" // Cloned into ~/Projects/my-project
+     */
+    clonePath: string;
   };
-  /**
-   * Defines the Git repositories that comprise "the entire project" or its services.
-   * EnvKit will clone these repositories into the specified `workspace.path`.
-   */
-  projects: Array<{
-    /**
-     * The URL of the Git repository to clone.
-     * Example: "https://github.com/your-org/frontend-app.git"
-     */
-    repoUrl: string;
-    /**
-     * The subdirectory within the `workspace.path` where this repository should be cloned.
-     * Example: "frontend" // Cloned into ~/Projects/my-app/frontend
-     * If omitted, it will be cloned directly into the `workspace.path` or derive from repo name.
-     */
-    clonePath?: string;
-    /**
-     * The specific Git branch to clone. If omitted, the default branch will be used.
-     * Example: "develop"
-     */
-    branch?: string;
-    /**
-     * If `true`, Git submodules will also be initialized and updated after cloning.
-     */
-    includeSubmodules?: boolean;
-    /**
-     * Defines the behavior if a directory already exists at the calculated `clonePath`.
-     * - "ask": (Default) Prompt the user whether to skip, delete and re-clone, or pull latest.
-     * - "skip": Do nothing if the directory exists.
-     * - "pull": Attempt to pull the latest changes if it's already a Git repo.
-     * - "delete-and-clone": Delete the existing directory and re-clone the repository.
-     */
-    ifExists?: "ask" | "skip" | "pull" | "delete-and-clone";
-    /**
-     * A script or series of commands to execute *after* this specific project repository is cloned and navigated into.
-     * This is typically used for dependency installation (e.g., `npm install`, `bun install`), or initial setup.
-     * Example: "npm install && npm run build"
-     */
-    postCloneScript?: string;
-    /**
-     * A specific command to install project dependencies for this repository.
-     * EnvKit could potentially auto-detect the package manager if not specified.
-     * Example: "bun install"
-     */
-    installCommand?: string;
-    /**
-     * A command to build the project after installation.
-     * Example: "npm run build"
-     */
-    buildCommand?: string;
-    /**
-     * A command to run tests for the project.
-     * Example: "npm test"
-     */
-    testCommand?: string;
-    /**
-     * A command to start the project (e.g., a dev server).
-     * Example: "npm run dev"
-     */
-    runCommand?: string;
-  }>;
   /**
    * Defines configuration for integrated development environments (IDEs) relevant to *this project*.
    * These settings will be applied when the blueprint is activated for the project.
